@@ -4,8 +4,8 @@ const express = require('express');
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res.status(200).send("Hello world!").end();
+app.get('/', (request, response) => {
+  response.sendFile('html/index.html', { root: __dirname });
 });
 
 /* Start the server */
