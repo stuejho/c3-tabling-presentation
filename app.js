@@ -4,6 +4,10 @@ const express = require('express');
 
 const app = express();
 
+/* Static files */
+app.use(express.static('public'))
+
+/* Routes */
 app.get('/', (request, response) => {
   response.sendFile('html/index.html', { root: __dirname });
 });
