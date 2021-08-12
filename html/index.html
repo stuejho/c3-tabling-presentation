@@ -18,10 +18,16 @@
             <div class="stage" id="main-stage">
                 <canvas id="matrix"></canvas>
                 <div class="scene">
-                    <h1>Fact 1</h1>
+                    <h1>What is ethical hacking?</h1>
                 </div>
                 <div class="scene">
-                    <h1>Fact 2</h1>
+                    <h1>What is cryptography?</h1>
+                </div>
+                <div class="scene">
+                    <h1>Do you like free pizza?</h1>
+                </div>
+                <div class="scene">
+                    <h1>How are firewalls breached?</h1>
                 </div>
             </div>
         </main>
@@ -29,9 +35,9 @@
         <!-- Set up matrix background, based on https://codepen.io/wefiy/pen/WPpEwo -->
         <script type="text/javascript">
             // Function to render characters
-            function render(canvas, context, fontSize, characters, columnYs) {
+            function render(matrixId, canvas, context, fontSize, characters, columnYs) {
                 // Function constants
-                const textColor = "#00ff00";
+                const textColor = window.getComputedStyle(document.getElementById("matrix")).getPropertyValue("color");
                 const resetChance = 0.025;  // probability of resetting column
                                             // after traveling screen height
 
@@ -49,6 +55,7 @@
                     const character = characters[Math.floor(Math.random() * characters.length)];
                     const xDraw = xIndex * fontSize;
                     const yDraw = yIndex * fontSize;
+
                     context.fillText(character, xDraw, yDraw);
 
                     // Randomly reset y-coordinate after reaching bottom of screen
@@ -59,7 +66,8 @@
             }
 
             // Get canvas and context (where things are rendered)
-            let matrixCanvas = document.getElementById("matrix");
+            const matrixId = "matrix";
+            let matrixCanvas = document.getElementById(matrixId);
             let ctx = matrixCanvas.getContext("2d");
 
             // Canvas size matches window size
@@ -82,20 +90,20 @@
             const delay = 50; // milliseconds
             setInterval(render, delay,
                 // arguments to render function
-                matrixCanvas, ctx, fontSize, chars, yCoords);
+                matrixId, matrixCanvas, ctx, fontSize, chars, yCoords);
         </script>
 
         <!-- Set up scene changes -->
         <script type="text/javascript">
             window.addEventListener("DOMContentLoaded", function() {
                 let stage = document.getElementById("main-stage");
-                let sets = stage.getElementsByClassName("set");
-                const sendToBack = function(e) { stage.appendChild(sets[0]); };
-                for (let i = 0; i < sets.length; i++) {
+                let scenes = stage.getElementsByClassName("scene");
+                const sendToBack = function(e) { stage.appendChild(scenes[0]); };
+                for (let i = 0; i < scenes.length; i++) {
                     // when the animation ends, move the current first element to
                     // the back of the sets (since that's what appendChild does
                     // when an existing node is appended)
-                    sets[i].addEventListener("animationend", sendToBack);
+                    scenes[i].addEventListener("animationend", sendToBack);
                 }
             });
         </script>
