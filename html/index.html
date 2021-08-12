@@ -35,9 +35,10 @@
         <!-- Set up matrix background, based on https://codepen.io/wefiy/pen/WPpEwo -->
         <script type="text/javascript">
             // Function to render characters
-            function render(matrixId, canvas, context, fontSize, characters, columnYs) {
+            function render(canvas, context, fontSize, characters, columnYs) {
                 // Function constants
-                const textColor = window.getComputedStyle(document.getElementById("matrix")).getPropertyValue("color");
+                const textColor = window.getComputedStyle(canvas).getPropertyValue("color");
+                const font = window.getComputedStyle(canvas).getPropertyValue("font");
                 const resetChance = 0.025;  // probability of resetting column
                                             // after traveling screen height
 
@@ -47,7 +48,7 @@
 
                 // Set text properties
                 context.fillStyle = textColor;
-                context.font = `${fontSize} px Arial`;
+                context.font = font;
 
                 // Draw a character for each column
                 columnYs.forEach(function(yIndex, xIndex, arrRef) {
@@ -74,7 +75,7 @@
             matrixCanvas.height = window.innerHeight;
             matrixCanvas.width = window.innerWidth;
 
-            // Characters
+            // Characters to display
             const charsUnsplit = "!#$%&()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^`abcdefghijklmnopqrstuvwxyz{|}~";
             const chars = charsUnsplit.split('');
 
@@ -82,7 +83,7 @@
             /* fontSize from document body: 
              * https://newbedev.com/how-can-i-get-default-font-size-in-pixels-by-using-javascript-or-jquery 
              */
-            const fontSize = Number(window.getComputedStyle(document.body).getPropertyValue('font-size').match(/\d+/)[0]);
+            const fontSize = Number(window.getComputedStyle(matrixCanvas).getPropertyValue('font-size').match(/\d+/)[0]);
             const numCols = Math.ceil(matrixCanvas.width / fontSize);
             let yCoords = Array(numCols).fill(1); // initial y coordinate
 
@@ -90,7 +91,7 @@
             const delay = 50; // milliseconds
             setInterval(render, delay,
                 // arguments to render function
-                matrixId, matrixCanvas, ctx, fontSize, chars, yCoords);
+                matrixCanvas, ctx, fontSize, chars, yCoords);
         </script>
 
         <!-- Set up scene changes -->
