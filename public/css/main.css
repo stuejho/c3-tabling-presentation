@@ -96,7 +96,7 @@ h6 {
     animation-name: color-fade;
     color: green;
     font-size: 1rem;
-    font-family: "Lucida Console";
+    font-family: "Lucida Console", monospace;
 }
 
 /* All sets overlap each other */
