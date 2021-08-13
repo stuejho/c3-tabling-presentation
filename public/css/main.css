@@ -161,7 +161,7 @@ h6 {
 }
 
 @keyframes spin {
-    0%   { transform: rotate(1turn); }
+    0%   { transform: rotate(-1turn); }
 }
 
 /* Scene stylings */
@@ -169,4 +169,5 @@ h6 {
 /* Emoji size */
 .big-emoji {
     font-size: 10em;
+    transform-origin: 0.5em 0.5em; /* Make sure origin is in center of emoji */
 }
