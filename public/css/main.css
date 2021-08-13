@@ -1,4 +1,6 @@
-/* Reset CSS */
+/*
+ * Reset CSS
+ */
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -48,9 +50,11 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-} /* Reset CSS */
+} /* End Reset CSS */
 
-/* Text styling */
+/* 
+ * Text styling 
+ */
 
 body {
     font-family: Tahoma, Geneva, sans-serif;
@@ -83,8 +87,13 @@ h6 {
     font-size: 1.25rem;
 }
 
-/* Main page content */
+/* End text styling */
 
+/* 
+ * Main page content
+ */
+
+/* All content goes on the stage */
 .stage {
     box-sizing: border-box;
     padding: 0;
@@ -93,6 +102,7 @@ h6 {
     background: black;
 }
 
+/* Matrix rain background */
 #matrix {
     position: absolute;
     display: block;
@@ -102,9 +112,9 @@ h6 {
     font-family: "Lucida Console", monospace;
 }
 
-/* All sets overlap each other */
+/* The stage features one scene at a time */
 .stage .scene {
-    position: absolute;
+    position: absolute; /* All scenes shown in the same position */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -116,22 +126,23 @@ h6 {
     opacity: 0;
 }
 
+/* Set spacing between scene components */
 .stage .scene > * {
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
 
+/* Ensure middle scene component is centered */
 .scene *:first-child, .scene *:last-child {
     flex-grow: 1;
     flex-basis: 0;
 }
 
-/* Typewriter effect */
+/* Set typewriter effect */
 .scene .question {
     color: white;
     /* https://css-tricks.com/snippets/css/typewriter-effect/ */
     overflow: hidden; /* Make sure content only appears when ready */
-    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
     border-right: .3em solid white; /* cursor */
     white-space: nowrap; /* Keeps the content on a single line */
     animation: 
@@ -139,13 +150,13 @@ h6 {
         blink-caret .75s step-end infinite;
 }
 
-/* The typing effect */
+/* Typing effect */
 @keyframes typing {
     0%   { max-width: 0 }
     100% { max-width: 100% }
 }
   
-  /* The typewriter cursor effect */
+/* Blinking cursor effect */
 @keyframes blink-caret {
     0%   { border-color: transparent }
     50%  { border-color: white; }
@@ -169,6 +180,7 @@ h6 {
     display: none;
 }
 
+/* Fade in and fade out */
 @keyframes fade {
     0%   { opacity: 0; }
     10%  { opacity: 1; }
@@ -176,8 +188,11 @@ h6 {
     100% { opacity: 0; }
 }
 
-/* Other animations */
+/*
+ * Scene stylings
+ */
 
+/* Spinning animation */
 .spin-anim {
     animation-name: spin;
     animation-duration: 3s;
@@ -189,10 +204,10 @@ h6 {
     0%   { transform: rotate(-1turn); }
 }
 
-/* Scene stylings */
-
 /* Emoji size */
 .big-emoji {
-    font-size: 10em;
-    transform-origin: 0.5em 0.5em; /* Make sure origin is in center of emoji */
+    position: absolute;
+    opacity: 0.25;
+    z-index: -1;
+    font-size: 20em;
 }
