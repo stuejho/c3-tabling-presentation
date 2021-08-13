@@ -113,17 +113,15 @@
 
         <!-- Set up scene changes -->
         <script type="text/javascript">
-            window.addEventListener("DOMContentLoaded", function() {
-                let stage = document.getElementById("main-stage");
-                let scenes = stage.getElementsByClassName("scene");
-                const sendToBack = function(e) { stage.appendChild(scenes[0]); };
-                for (let i = 0; i < scenes.length; i++) {
-                    // when the animation ends, move the current first element to
-                    // the back of the sets (since that's what appendChild does
-                    // when an existing node is appended)
-                    scenes[i].addEventListener("animationend", sendToBack);
-                }
-            });
+            let stage = document.getElementById("main-stage");
+            let scenes = stage.getElementsByClassName("scene");
+            const sendToBack = function(e) { stage.appendChild(scenes[0]); };
+            for (let i = 0; i < scenes.length; i++) {
+                // when the animation ends, move the current first element to
+                // the back of the sets (since that's what appendChild does
+                // when an existing node is appended)
+                scenes[i].addEventListener("animationend", sendToBack);
+            }
         </script>
         <!-- Fix Chromium bug that causes CSS transitions to fire when form 
              elements are present.
