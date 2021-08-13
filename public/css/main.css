@@ -126,8 +126,30 @@ h6 {
     flex-basis: 0;
 }
 
-.scene h1 {
+/* Typewriter effect */
+.scene .question {
     color: white;
+    /* https://css-tricks.com/snippets/css/typewriter-effect/ */
+    overflow: hidden; /* Make sure content only appears when ready */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    border-right: .3em solid white; /* cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    animation: 
+        typing 3s steps(30, end),
+        blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+    0%   { max-width: 0 }
+    100% { max-width: 100% }
+}
+  
+  /* The typewriter cursor effect */
+@keyframes blink-caret {
+    0%   { border-color: transparent }
+    50%  { border-color: white; }
+    100% { border-color: transparent }
 }
 
 /* 
@@ -157,7 +179,10 @@ h6 {
 /* Other animations */
 
 .spin-anim {
-    animation: spin 3s linear infinite;
+    animation-name: spin;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
 }
 
 @keyframes spin {
