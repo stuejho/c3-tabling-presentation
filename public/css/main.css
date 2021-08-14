@@ -1,0 +1,201 @@
+/*
+ * Reset CSS
+ */
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+    overflow: hidden;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+} /* End Reset CSS */
+
+/* 
+ * Text styling 
+ */
+
+body {
+    font-family: Tahoma, Geneva, sans-serif;
+    font-family: Georgia, serif;
+    font-family: "Courier New", Courier, monospace;
+    font-family: "Lucida Console", Monaco, monospace;
+}
+
+h1 {
+    font-size: 3.815rem;
+}
+
+h2 {
+    font-size: 3.052rem;
+}
+
+h3 {
+    font-size: 2.441rem;
+}
+
+h4 {
+    font-size: 1.953rem;
+}
+
+h5 {
+    font-size: 1.563rem;
+}
+
+h6 {
+    font-size: 1.25rem;
+}
+
+/* End text styling */
+
+/* 
+ * Main page content
+ */
+
+/* All content goes on the stage */
+.stage {
+    box-sizing: border-box;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    background: black;
+}
+
+/* Matrix rain background */
+#matrix {
+    position: absolute;
+    display: block;
+    animation-name: color-fade;
+    color: green;
+    font-size: 1rem;
+    font-family: "Lucida Console", monospace;
+}
+
+/* The stage features one scene at a time */
+.stage .scene {
+    position: absolute; /* All scenes shown in the same position */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+/* Set typewriter effect */
+.scene .question {
+    color: white;
+    /* https://css-tricks.com/snippets/css/typewriter-effect/ */
+    overflow: hidden; /* Make sure content only appears when ready */
+    border-right: .3em solid white; /* cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    animation: 
+        typing 3s steps(30, end),
+        blink-caret .75s step-end infinite;
+}
+
+/* Typing effect */
+@keyframes typing {
+    0%   { max-width: 0 }
+    100% { max-width: 100% }
+}
+  
+/* Blinking cursor effect */
+@keyframes blink-caret {
+    0%   { border-color: transparent }
+    50%  { border-color: white; }
+    100% { border-color: transparent }
+}
+
+/* 
+ * Set transitions 
+ */
+
+/* First set is on top and will fade out */
+.stage div:nth-of-type(1).scene {
+    animation-name: fade;
+    animation-delay: 0s;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+}
+
+/* All following sets are invisible */
+.stage div:nth-of-type(n+2).scene {
+    display: none;
+}
+
+/* Fade in and fade out */
+@keyframes fade {
+    0%   { opacity: 1; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/*
+ * Scene stylings
+ */
+
+/* Spinning animation */
+.spin-anim {
+    animation-name: spin;
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes spin {
+    0%   { transform: rotate(-1turn); }
+}
+
+/* Emoji size */
+.big-emoji {
+    position: absolute;
+    opacity: 0.25;
+    z-index: -1;
+    font-size: 20em;
+}
