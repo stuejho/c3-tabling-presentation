@@ -17,34 +17,7 @@
         <main>
             <div class="stage" id="main-stage">
                 <canvas id="matrix"></canvas>
-                <div class="scene">
-                    <div></div>
-                    <div class="question">
-                        <h1>What is ethical hacking?</h1>
-                    </div>
-                    <div></div>
-                </div>
-                <div class="scene">
-                    <div></div>
-                    <div class="question">
-                        <h1>What is cryptography?</h1>
-                    </div>
-                    <div></div>
-                </div>
-                <div class="scene">
-                    <div></div>
-                    <div class="question">
-                        <h1>Do you like free pizza?</h1>
-                    </div>
-                    <div></div>
-                </div>
-                <div class="scene">
-                    <div></div>
-                    <div class="question">
-                        <h1>How are firewalls breached?</h1>
-                    </div>
-                    <div></div>
-                </div>
+                <!-- Scenes created by Javascript below -->
             </div>
         </main>
 
@@ -111,21 +84,52 @@
                 matrixCanvas, ctx, fontSize, chars, yCoords);
         </script>
 
-        <!-- Set up scene changes -->
+        <!-- Load display text and set up scene changes -->
         <script type="text/javascript">
-            let stage = document.getElementById("main-stage");
-            let scenes = stage.getElementsByClassName("scene");
-            const sendToBack = function(e) { stage.appendChild(scenes[0]); };
-            for (let i = 0; i < scenes.length; i++) {
-                // when the animation ends, move the current first element to
-                // the back of the sets (since that's what appendChild does
-                // when an existing node is appended)
-                scenes[i].addEventListener("animationend", sendToBack);
+            function setupScenes(messages) {
+                // Stage to house scenes
+                let stage = document.getElementById("main-stage");
+
+                // Create scenes using messages
+                messages.forEach((message) => {
+                    // Outer scene div
+                    const divScene = document.createElement("div");;
+                    divScene.className = "scene";
+
+                    // Inner question div
+                    const divQuestion = document.createElement("div");;
+                    divQuestion.className = "question";
+
+                    // Question header text
+                    const question = document.createElement("h1");
+                    question.innerHTML = message;
+
+                    // Place divs inside each other
+                    divQuestion.appendChild(question);
+                    divScene.appendChild(divQuestion);
+                    stage.appendChild(divScene);
+                });
+            
+                // Set up scene transitions
+                let scenes = stage.getElementsByClassName("scene");
+                const sendToBack = function(e) { stage.appendChild(scenes[0]); };
+                for (let i = 0; i < scenes.length; ++i) {
+                    // when the animation ends, move the current first element to
+                    // the back of the sets (since that's what appendChild does
+                    // when an existing node is appended)
+                    scenes[i].addEventListener("animationend", sendToBack);
+                }
             }
+
+            // Get messages to display and create scenes
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", "/messages", true);
+            xhr.onload = function () {
+                const messages = xhr.response;
+                setupScenes(messages.split('\n'));
+                console.log(xhr.response);
+            };
+            xhr.send(null);
         </script>
-        <!-- Fix Chromium bug that causes CSS transitions to fire when form 
-             elements are present.
-             https://bugs.chromium.org/p/chromium/issues/detail?id=332189   -->
-        <script> </script>
       </body>
 </html>

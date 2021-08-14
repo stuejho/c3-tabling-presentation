@@ -126,18 +126,6 @@ h6 {
     opacity: 0;
 }
 
-/* Set spacing between scene components */
-.stage .scene > * {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-
-/* Ensure middle scene component is centered */
-.scene *:first-child, .scene *:last-child {
-    flex-grow: 1;
-    flex-basis: 0;
-}
-
 /* Set typewriter effect */
 .scene .question {
     color: white;
