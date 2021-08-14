@@ -122,7 +122,7 @@
 
                 // Set up scene transitions
                 let scenes = stage.getElementsByClassName("scene");
-                const sendToBack = function(e) { stage.appendChild(scenes[0]); };
+                const sendToBack = function(e) { if (e.animationName === "fade") stage.appendChild(scenes[0]); };
                 for (let i = 0; i < scenes.length; ++i) {
                     // when the animation ends, move the current first element to
                     // the back of the sets (since that's what appendChild does
