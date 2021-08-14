@@ -6,7 +6,7 @@ const request = require('request');
 const app = express();
 
 /* Static files */
-app.use(express.static('public'))
+app.use(express.static('dist'))
 
 /* Routes */
 
