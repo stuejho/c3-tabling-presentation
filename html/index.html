@@ -17,6 +17,12 @@
         <main>
             <div class="stage" id="main-stage">
                 <canvas id="matrix"></canvas>
+                <!-- Initial scene removed once additional scenes are loaded -->
+                <div class="scene" id="temp">
+                    <div class="question">
+                        <h1>Initializing...</h1>
+                    </div>
+                </div>
                 <!-- Scenes created by Javascript below -->
             </div>
         </main>
@@ -87,6 +93,10 @@
         <!-- Load display text and set up scene changes -->
         <script type="text/javascript">
             function setupScenes(messages) {
+                // Remove initializing message
+                const temp = document.getElementById("temp");
+                temp.addEventListener("animationend", () => temp.outerHTML = "");
+                
                 // Stage to house scenes
                 let stage = document.getElementById("main-stage");
 
@@ -109,7 +119,7 @@
                     divScene.appendChild(divQuestion);
                     stage.appendChild(divScene);
                 });
-            
+
                 // Set up scene transitions
                 let scenes = stage.getElementsByClassName("scene");
                 const sendToBack = function(e) { stage.appendChild(scenes[0]); };
