@@ -159,7 +159,7 @@ h6 {
 .stage div:nth-of-type(1).scene {
     animation-name: fade;
     animation-delay: 0s;
-    animation-duration: 4s;
+    animation-duration: 5s;
     animation-timing-function: linear;
 }
 
@@ -170,7 +170,7 @@ h6 {
 
 /* Fade in and fade out */
 @keyframes fade {
-    0%   { opacity: 0; }
+    0%   { opacity: 1; }
     10%  { opacity: 1; }
     90%  { opacity: 1; }
     100% { opacity: 0; }
