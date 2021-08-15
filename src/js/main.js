@@ -3,6 +3,14 @@
  */
 var gMessagesRaw = ""; // Messages in unsplit string form
 
+function setMessagesRaw(messagesRaw) {
+  gMessagesRaw = messagesRaw;
+}
+
+function getMessagesRaw() {
+  return gMessagesRaw;
+}
+
 /*
  * Functions
  */
@@ -60,7 +68,7 @@ function constructScenes() {
   let stage = document.getElementById("main-stage");
 
   // Create scenes using messages
-  const messageList = gMessagesRaw.split('\n');
+  const messageList = getMessagesRaw().split('\n');
   messageList.forEach((message) => {
     // Outer scene div
     const divScene = document.createElement("div");
@@ -88,17 +96,12 @@ function constructScenes() {
   }
 }
 
-/* Global variable setter */
-function setMessagesRaw(messagesRaw) {
-  gMessagesRaw = messagesRaw;
-}
-
 /* Show message editor if 'E' is pressed */
 function keydownHandler(e) {
   let editor = document.getElementById("editor");
   if ((e.key === 'E' || e.key === 'e') && 
       window.getComputedStyle(editor, null).display === "none") {
-    document.getElementById("message-textarea").value = gMessagesRaw;
+    document.getElementById("message-textarea").value = getMessagesRaw();
     editor.style.display = "block";
   }
 }
@@ -145,6 +148,9 @@ function init() {
   setInterval(render, delay,
     // arguments to render function
     matrixCanvas, ctx, fontSize, chars, yCoords);
+
+  /* Set initial loading messages */
+  updateScenes(["......", "Press 'E' to open the Message Editor."].join('\n'));
 
   /* Get messages to display and create scenes */
   let xhr = new XMLHttpRequest();
