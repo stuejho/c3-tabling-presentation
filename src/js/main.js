@@ -2,6 +2,41 @@
  * Functions
  */
 
+/* Set up matrix rain */
+function startMatrixRain() {
+  // Get canvas and context (where things are rendered)
+  const matrixId = "matrix";
+  let matrixCanvas = document.getElementById(matrixId);
+  let ctx = matrixCanvas.getContext("2d");
+
+  // Canvas size matches window size
+  matrixCanvas.height = window.innerHeight;
+  matrixCanvas.width = window.innerWidth;
+
+  // Characters to display
+  // https://scifi.stackexchange.com/questions/137575/is-there-a-list-of-the-symbols-shown-in-the-matrixthe-symbols-rain-how-many
+  const charsUnsplit = "日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ012345789ZTHEMATRIX:・.\"=*+-<>¦｜ｸ";
+  const chars = charsUnsplit.split('');
+
+  // Use page font size to set matrix dimensions
+  /* fontSize from document body: 
+  * https://newbedev.com/how-can-i-get-default-font-size-in-pixels-by-using-javascript-or-jquery 
+  */
+  const fontSize = Number(window.getComputedStyle(matrixCanvas).getPropertyValue('font-size').match(/\d+/)[0]);
+  const numCols = Math.ceil(matrixCanvas.width / fontSize);
+  let yCoords = Array(numCols).fill(1); // initial y coordinate
+
+  // Start rendering characters
+  const delay = 50; // milliseconds
+  window.rainWorker = setInterval(render, delay,
+    // arguments to render function
+    matrixCanvas, ctx, fontSize, chars, yCoords);
+}
+
+function stopMatrixRain() {
+  clearInterval(window.rainWorker);
+}
+
 /* Render matrix rain */
 function render(canvas, context, fontSize, characters, columnYs) {
   // Function constants
@@ -113,35 +148,8 @@ function updateScenes(messagesRaw) {
 }
 
 function init() {
-  /* Set up matrix rain */
-
-  // Get canvas and context (where things are rendered)
-  const matrixId = "matrix";
-  let matrixCanvas = document.getElementById(matrixId);
-  let ctx = matrixCanvas.getContext("2d");
-
-  // Canvas size matches window size
-  matrixCanvas.height = window.innerHeight;
-  matrixCanvas.width = window.innerWidth;
-
-  // Characters to display
-  // https://scifi.stackexchange.com/questions/137575/is-there-a-list-of-the-symbols-shown-in-the-matrixthe-symbols-rain-how-many
-  const charsUnsplit = "日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ012345789ZTHEMATRIX:・.\"=*+-<>¦｜ｸ";
-  const chars = charsUnsplit.split('');
-
-  // Use page font size to set matrix dimensions
-  /* fontSize from document body: 
-  * https://newbedev.com/how-can-i-get-default-font-size-in-pixels-by-using-javascript-or-jquery 
-  */
-  const fontSize = Number(window.getComputedStyle(matrixCanvas).getPropertyValue('font-size').match(/\d+/)[0]);
-  const numCols = Math.ceil(matrixCanvas.width / fontSize);
-  let yCoords = Array(numCols).fill(1); // initial y coordinate
-
-  // Start rendering characters
-  const delay = 50; // milliseconds
-  setInterval(render, delay,
-    // arguments to render function
-    matrixCanvas, ctx, fontSize, chars, yCoords);
+  /* Set up rain */
+  startMatrixRain();
 
   /* Set initial loading messages */
   updateScenes(["......", "Press 'E' to open the Message Editor."].join('\n'));
@@ -174,6 +182,12 @@ function init() {
 // Display message editor when the user presses 'E' and
 // hide message editor when the user presses 'Esc'
 document.addEventListener("keydown", keydownHandler);
+
+// Reset rain on screen resize to make sure entire canvas is covered optimally
+window.onresize = () => {
+  stopMatrixRain();
+  startMatrixRain();
+}
 
 window.onload = () => {
   init();
