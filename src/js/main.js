@@ -71,7 +71,7 @@ function constructScenes(messageList) {
 
     // Question header text
     const question = document.createElement("h1");
-    question.innerHTML = message;
+    question.innerText = message;
 
     // Place divs inside each other
     divQuestion.appendChild(question);
