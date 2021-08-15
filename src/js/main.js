@@ -1,7 +1,7 @@
 /*
  * Global variables
  */
-var gMessages = ""; // Messages in unsplit string form
+var gMessagesRaw = ""; // Messages in unsplit string form
 
 /*
  * Functions
@@ -39,17 +39,28 @@ function render(canvas, context, fontSize, characters, columnYs) {
   });
 }
 
-/* Load display text and set up scene changes */
-function setupScenes(messages) {
-  // Remove initializing message
-  const temp = document.getElementById("temp");
-  temp.addEventListener("animationend", () => temp.outerHTML = "");
+/* Delete all current scenes */
+function destructScenes() {
+  // Current scenes
+  let stage = document.getElementById("main-stage");
+  let scenes = stage.getElementsByClassName("scene");
 
+  if (scenes.length > 0) {
+    // Remove all subsequent scenes in reverse order since length will keep
+    // changing (i.e., length can't be used as boundary condition)
+    for (let i = scenes.length - 1; i >= 0; --i) {
+      scenes[i].outerHTML = "";
+    }
+  }
+}
+
+/* Load display text and set up scene changes */
+function constructScenes(messageList) {
   // Stage to house scenes
   let stage = document.getElementById("main-stage");
 
   // Create scenes using messages
-  messages.forEach((message) => {
+  messageList.forEach((message) => {
     // Outer scene div
     const divScene = document.createElement("div");
     divScene.className = "scene";
@@ -71,16 +82,14 @@ function setupScenes(messages) {
   // Set up scene transitions
   let scenes = stage.getElementsByClassName("scene");
   const sendToBack = e => { if (e.animationName === "fade") stage.appendChild(scenes[0]); };
-  for (let i = 0; i < scenes.length; ++i) {
-    // when the animation ends, move the current first element to
-    // the back of the sets (since that's what appendChild does
-    // when an existing node is appended)
-    scenes[i].addEventListener("animationend", sendToBack);
+  for (let scene of scenes) {
+    scene.addEventListener("animationend", sendToBack);
   }
 }
 
-function setMessages(messages) {
-  gMessages = messages;
+/* Global variable setter */
+function setMessagesRaw(messagesRaw) {
+  gMessagesRaw = messagesRaw;
 }
 
 /* Show message editor if 'E' is pressed */
@@ -88,7 +97,7 @@ function keydownHandler(e) {
   let editor = document.getElementById("editor");
   if ((e.key === 'E' || e.key === 'e') && 
       window.getComputedStyle(editor, null).display === "none") {
-    document.getElementById("message-textarea").value = gMessages;
+    document.getElementById("message-textarea").value = gMessagesRaw;
     editor.style.display = "block";
   }
 }
@@ -96,6 +105,13 @@ function keydownHandler(e) {
 /* Close editor by setting display to none */
 function closeEditor() {
   document.getElementById("editor").style.display = "none";
+}
+
+/* Updates the displayed scenes by removing old ones and creating new ones */
+function updateScenes(messagesRaw) {
+  setMessagesRaw(messagesRaw);
+  destructScenes();
+  constructScenes(messagesRaw.split('\n'));
 }
 
 function init() {
@@ -133,14 +149,21 @@ function init() {
   let xhr = new XMLHttpRequest();
   xhr.open("GET", "/messages", true);
   xhr.onload = function () {
-    const messages = xhr.response;
-    setMessages(messages);
-    setupScenes(messages.split('\n'));
+    const messagesRaw = xhr.response;
+    updateScenes(messagesRaw);
   };
   xhr.send(null);
 
   let cancelBtn = document.getElementById("cancelBtn");
   cancelBtn.onclick = e => { closeEditor(); };
+
+  let messageEditorForm = document.getElementById("message-editor-form");
+  messageEditorForm.onsubmit = () => {
+    const messagesRaw = document.getElementById("message-textarea").value;
+    updateScenes(messagesRaw);
+    closeEditor();
+    return false;
+  }
 }
 
 /* 
