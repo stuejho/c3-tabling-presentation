@@ -22,18 +22,19 @@
                 <!-- Initial scene removed once additional scenes are loaded -->
                 <div class="scene" id="temp">
                     <div class="question">
-                        <h1>Initializing...</h1>
+                        <h1>......</h1>
                     </div>
                 </div>
                 <!-- Scenes created by Javascript below -->
             </div>
             <div class="message-editor" id="editor">
-                <form action="javascript:void(0);" onsubmit="updateMessages();return false" class="form-container">
+                <!-- Form/button handlers defined in main.js -->
+                <form id="message-editor-form" action="javascript:void(0);" class="form-container">
                     <label for="message-textarea">Message Editor</label>
                     <p>Input messages in the space below, one message per line.</p>
                     <textarea id="message-textarea" rows="15" cols="40"></textarea>
                     <div class="btn-group">
-                        <button type="button" class="btn">Update</button>
+                        <button type="submit" class="btn">Update</button>
                         <button type="button" class="btn cancel" id="cancelBtn">Cancel</button>
                     </div>
                 </form>
