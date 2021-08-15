@@ -163,7 +163,7 @@ function init() {
   startMatrixRain();
 
   /* Set initial loading messages */
-  updateScenes(["......", "Press 'E' to open the Message Editor."].join('\n'));
+  updateScenes(["............", "Press 'E' to open the Message Editor."].join('\n'));
 
   /* Get messages to display and create scenes */
   let xhr = new XMLHttpRequest();
