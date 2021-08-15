@@ -31,13 +31,14 @@ function startMatrixRain() {
 
   // Start rendering characters
   const delay = 50; // milliseconds
-  window.rainWorker = setInterval(render, delay,
+  window.rainWorkerId = setInterval(render, delay,
     // arguments to render function
     matrixCanvas, ctx, fontSize, chars, yCoords);
 }
 
+/* Stops rainWorker by using ID set by previous call to startMatrixRain */
 function stopMatrixRain() {
-  clearInterval(window.rainWorker);
+  clearInterval(window.rainWorkerId);
 }
 
 /* Render matrix rain */
@@ -72,19 +73,11 @@ function render(canvas, context, fontSize, characters, columnYs) {
   });
 }
 
-/* Delete all current scenes */
-function destructScenes() {
-  // Current scenes
-  let stage = document.getElementById("main-stage");
-  let scenes = stage.getElementsByClassName("scene");
-
-  if (scenes.length > 0) {
-    // Remove all subsequent scenes in reverse order since length will keep
-    // changing (i.e., length can't be used as boundary condition)
-    for (let i = scenes.length - 1; i >= 0; --i) {
-      scenes[i].outerHTML = "";
-    }
-  }
+/* Updates the displayed scenes by removing old ones and creating new ones */
+function updateScenes(messagesRaw) {
+  document.getElementById("message-textarea").value = messagesRaw;
+  destructScenes();
+  constructScenes(messagesRaw.split('\n'));
 }
 
 /* Load display text and set up scene changes */
@@ -120,7 +113,22 @@ function constructScenes(messageList) {
   }
 }
 
-/* Show message editor if 'E' is pressed */
+/* Delete all current scenes */
+function destructScenes() {
+  // Current scenes
+  let stage = document.getElementById("main-stage");
+  let scenes = stage.getElementsByClassName("scene");
+
+  if (scenes.length > 0) {
+    // Remove all subsequent scenes in reverse order since length will keep
+    // changing (i.e., length can't be used as boundary condition)
+    for (let i = scenes.length - 1; i >= 0; --i) {
+      scenes[i].outerHTML = "";
+    }
+  }
+}
+
+/* Show message editor if 'E' is pressed/hide if 'Escape' is pressed */
 function keydownHandler(e) {
   let editor = document.getElementById("editor");
   if ((e.key === 'E' || e.key === 'e') && 
@@ -143,13 +151,7 @@ function closeEditor() {
   document.getElementById("editor").style.display = "none";
 }
 
-/* Updates the displayed scenes by removing old ones and creating new ones */
-function updateScenes(messagesRaw) {
-  document.getElementById("message-textarea").value = messagesRaw;
-  destructScenes();
-  constructScenes(messagesRaw.split('\n'));
-}
-
+/* Set up matrix rain, messages, and message editor */
 function init() {
   /* Set up rain */
   startMatrixRain();
