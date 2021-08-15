@@ -12,6 +12,8 @@
         
         <!-- Meta viewport tag to enable correct viewport on mobile devices -->
         <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <script src="js/bundle.js"></script>
     </head>
     <body>
         <main>
@@ -25,9 +27,17 @@
                 </div>
                 <!-- Scenes created by Javascript below -->
             </div>
+            <div class="message-editor" id="editor">
+                <form action="javascript:void(0);" onsubmit="updateMessages();return false" class="form-container">
+                    <label for="message-textarea">Message Editor</label>
+                    <p>Input messages in the space below, one message per line.</p>
+                    <textarea id="message-textarea" rows="15" cols="40"></textarea>
+                    <div class="btn-group">
+                        <button type="button" class="btn">Update</button>
+                        <button type="button" class="btn cancel" id="cancelBtn">Cancel</button>
+                    </div>
+                </form>
+            </div>
         </main>
-
-        <!-- Set up background and messages -->
-        <script src="js/bundle.js"></script>
     </body>
 </html>
