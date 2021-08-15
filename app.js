@@ -2,11 +2,14 @@
 
 const express = require('express');
 const request = require('request');
+const favicon = require('serve-favicon');
+const path = require('path');
 
 const app = express();
 
 /* Static files */
 app.use(express.static('dist'))
+app.use(favicon(path.join(__dirname, 'dist', 'favicon.ico')))
 
 /* Routes */
 

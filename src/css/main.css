@@ -107,7 +107,7 @@ h6 {
     position: absolute;
     display: block;
     animation-name: color-fade;
-    color: green;
+    color: lime;
     font-size: 1rem;
     font-family: "Lucida Console", monospace;
 }
@@ -127,7 +127,7 @@ h6 {
 }
 
 /* Set typewriter effect */
-.scene .question {
+.scene .message {
     color: white;
     /* https://css-tricks.com/snippets/css/typewriter-effect/ */
     overflow: hidden; /* Make sure content only appears when ready */
@@ -177,25 +177,80 @@ h6 {
 }
 
 /*
- * Scene stylings
+ * Message editor
  */
-
-/* Spinning animation */
-.spin-anim {
-    animation-name: spin;
-    animation-duration: 3s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-}
-
-@keyframes spin {
-    0%   { transform: rotate(-1turn); }
-}
-
-/* Emoji size */
-.big-emoji {
+.message-editor {
+    display: none;
+    box-sizing: border-box;
     position: absolute;
-    opacity: 0.25;
-    z-index: -1;
-    font-size: 20em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: auto;
+    padding: 1em;
+    color: white;
+    background-color: rgba(15, 127, 15, 0.5);
+    z-index: 1;
+}
+
+.form-container > * {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.form-container > *:last-child {
+    margin-bottom: 0;
+}
+
+.form-container label {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#message-textarea {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    outline: 1px white solid;
+    font-size: 1.25em;
+    resize: none;
+}
+
+#message-textarea:hover, #message-textarea:focus {
+    outline: 2px #D0D3D4 solid;
+}
+
+.btn {
+    appearance: none;
+    color: white;
+    background-color: rgba(50, 205, 50, 0.75);
+    border: none;
+    outline: 1px white solid;
+    padding: 1em 1.2em;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.btn:hover {
+    outline: 2px white solid;
+}
+
+.cancel {
+    color: white;
+    background-color: rgba(255, 0, 0, 0.75);
+}
+
+.btn-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.btn-group > .btn {
+    margin-left: 1em;
 }
