@@ -66,16 +66,16 @@ function constructScenes(messageList) {
     divScene.className = "scene";
 
     // Inner question div
-    const divQuestion = document.createElement("div");
-    divQuestion.className = "question";
+    const divMessage = document.createElement("div");
+    divMessage.className = "message";
 
-    // Question header text
-    const question = document.createElement("h1");
-    question.innerText = message;
+    // Message header text
+    const messageH1 = document.createElement("h1");
+    messageH1.innerText = message;
 
     // Place divs inside each other
-    divQuestion.appendChild(question);
-    divScene.appendChild(divQuestion);
+    divMessage.appendChild(messageH1);
+    divScene.appendChild(divMessage);
     stage.appendChild(divScene);
   });
 

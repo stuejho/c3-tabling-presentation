@@ -127,7 +127,7 @@ h6 {
 }
 
 /* Set typewriter effect */
-.scene .question {
+.scene .message {
     color: white;
     /* https://css-tricks.com/snippets/css/typewriter-effect/ */
     overflow: hidden; /* Make sure content only appears when ready */
