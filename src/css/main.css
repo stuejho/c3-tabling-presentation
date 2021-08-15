@@ -220,7 +220,7 @@ h6 {
     resize: none;
 }
 
-#message-textarea:focus {
+#message-textarea:hover, #message-textarea:focus {
     outline: 2px #D0D3D4 solid;
 }
 
