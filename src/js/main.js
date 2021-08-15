@@ -24,7 +24,10 @@ function startMatrixRain() {
   */
   const fontSize = Number(window.getComputedStyle(matrixCanvas).getPropertyValue('font-size').match(/\d+/)[0]);
   const numCols = Math.ceil(matrixCanvas.width / fontSize);
-  let yCoords = Array(numCols).fill(1); // initial y coordinate
+  let yCoords = []; // initial y coordinate for each column are randomly set
+  for (let i = 0; i < numCols; ++i) {
+    yCoords.push(-Math.floor(Math.random() * 100));
+  }
 
   // Start rendering characters
   const delay = 50; // milliseconds
