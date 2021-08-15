@@ -1,8 +1,13 @@
 /*
+ * Global variables
+ */
+var gMessages = ""; // Messages in unsplit string form
+
+/*
  * Functions
  */
 
-/* Function to render matrix rain */
+/* Render matrix rain */
 function render(canvas, context, fontSize, characters, columnYs) {
   // Function constants
   const textColor = window.getComputedStyle(canvas).getPropertyValue("color");
@@ -34,7 +39,7 @@ function render(canvas, context, fontSize, characters, columnYs) {
   });
 }
 
-/* Function to load display text and set up scene changes */
+/* Load display text and set up scene changes */
 function setupScenes(messages) {
   // Remove initializing message
   const temp = document.getElementById("temp");
@@ -74,45 +79,77 @@ function setupScenes(messages) {
   }
 }
 
+function setMessages(messages) {
+  gMessages = messages;
+}
+
+/* Show message editor if 'E' is pressed */
+function keydownHandler(e) {
+  let editor = document.getElementById("editor");
+  if ((e.key === 'E' || e.key === 'e') && 
+      window.getComputedStyle(editor, null).display === "none") {
+    document.getElementById("message-textarea").value = gMessages;
+    editor.style.display = "block";
+  }
+}
+
+/* Close editor by setting display to none */
+function closeEditor() {
+  document.getElementById("editor").style.display = "none";
+}
+
+function init() {
+  /* Set up matrix rain */
+
+  // Get canvas and context (where things are rendered)
+  const matrixId = "matrix";
+  let matrixCanvas = document.getElementById(matrixId);
+  let ctx = matrixCanvas.getContext("2d");
+
+  // Canvas size matches window size
+  matrixCanvas.height = window.innerHeight;
+  matrixCanvas.width = window.innerWidth;
+
+  // Characters to display
+  // https://scifi.stackexchange.com/questions/137575/is-there-a-list-of-the-symbols-shown-in-the-matrixthe-symbols-rain-how-many
+  const charsUnsplit = "日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ012345789ZTHEMATRIX:・.\"=*+-<>¦｜ｸ";
+  const chars = charsUnsplit.split('');
+
+  // Use page font size to set matrix dimensions
+  /* fontSize from document body: 
+  * https://newbedev.com/how-can-i-get-default-font-size-in-pixels-by-using-javascript-or-jquery 
+  */
+  const fontSize = Number(window.getComputedStyle(matrixCanvas).getPropertyValue('font-size').match(/\d+/)[0]);
+  const numCols = Math.ceil(matrixCanvas.width / fontSize);
+  let yCoords = Array(numCols).fill(1); // initial y coordinate
+
+  // Start rendering characters
+  const delay = 50; // milliseconds
+  setInterval(render, delay,
+    // arguments to render function
+    matrixCanvas, ctx, fontSize, chars, yCoords);
+
+  /* Get messages to display and create scenes */
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", "/messages", true);
+  xhr.onload = function () {
+    const messages = xhr.response;
+    setMessages(messages);
+    setupScenes(messages.split('\n'));
+  };
+  xhr.send(null);
+
+  let cancelBtn = document.getElementById("cancelBtn");
+  cancelBtn.onclick = e => { closeEditor(); };
+}
+
 /* 
- * Main script execution
+ * Event listeners
  */
 
-/* Set up matrix rain */
+// Display message editor when the user presses the 'E' key
+document.addEventListener("keydown", keydownHandler);
 
-// Get canvas and context (where things are rendered)
-const matrixId = "matrix";
-let matrixCanvas = document.getElementById(matrixId);
-let ctx = matrixCanvas.getContext("2d");
-
-// Canvas size matches window size
-matrixCanvas.height = window.innerHeight;
-matrixCanvas.width = window.innerWidth;
-
-// Characters to display
-// https://scifi.stackexchange.com/questions/137575/is-there-a-list-of-the-symbols-shown-in-the-matrixthe-symbols-rain-how-many
-const charsUnsplit = "日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ012345789ZTHEMATRIX:・.\"=*+-<>¦｜ｸ";
-const chars = charsUnsplit.split('');
-
-// Use page font size to set matrix dimensions
-/* fontSize from document body: 
- * https://newbedev.com/how-can-i-get-default-font-size-in-pixels-by-using-javascript-or-jquery 
- */
-const fontSize = Number(window.getComputedStyle(matrixCanvas).getPropertyValue('font-size').match(/\d+/)[0]);
-const numCols = Math.ceil(matrixCanvas.width / fontSize);
-let yCoords = Array(numCols).fill(1); // initial y coordinate
-
-// Render characters
-const delay = 50; // milliseconds
-setInterval(render, delay,
-  // arguments to render function
-  matrixCanvas, ctx, fontSize, chars, yCoords);
-
-/* Get messages to display and create scenes */
-let xhr = new XMLHttpRequest();
-xhr.open("GET", "/messages", true);
-xhr.onload = function () {
-  const messages = xhr.response;
-  setupScenes(messages.split('\n'));
-};
-xhr.send(null);
+window.onload = () => {
+  init();
+}
