@@ -199,3 +199,76 @@ h6 {
     z-index: -1;
     font-size: 20em;
 }
+
+/*
+ * Message editor
+ */
+.message-editor {
+    display: none;
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: auto;
+    padding: 1em;
+    color: white;
+    background-color: rgba(15, 127, 15, 0.5);
+    z-index: 1;
+}
+
+.form-container > * {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.form-container > *:last-child {
+    margin-bottom: 0;
+}
+
+.form-container label {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#message-textarea {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    outline: 1px white solid;
+    font-size: 1.25em;
+    resize: none;
+}
+
+#message-textarea:focus {
+    outline: 2px #D0D3D4 solid;
+}
+
+.btn {
+    appearance: none;
+    color: white;
+    background-color: #04AA6D;
+    border: none;
+    padding: 1em 1.2em;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.cancel {
+    color: white;
+    background-color: red;
+}
+
+.btn-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.btn-group > .btn {
+    margin-left: 1em;
+}
