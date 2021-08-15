@@ -5,6 +5,7 @@ var gMessagesRaw = ""; // Messages in unsplit string form
 
 function setMessagesRaw(messagesRaw) {
   gMessagesRaw = messagesRaw;
+  document.getElementById("message-textarea").value = gMessagesRaw;
 }
 
 function getMessagesRaw() {
@@ -101,7 +102,6 @@ function keydownHandler(e) {
   let editor = document.getElementById("editor");
   if ((e.key === 'E' || e.key === 'e') && 
       window.getComputedStyle(editor, null).display === "none") {
-    document.getElementById("message-textarea").value = getMessagesRaw();
     openEditor();
   }
   else if (e.key === "Escape" &&
