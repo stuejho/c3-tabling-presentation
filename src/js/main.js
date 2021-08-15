@@ -76,6 +76,7 @@ function render(canvas, context, fontSize, characters, columnYs) {
 /* Updates the displayed scenes by removing old ones and creating new ones */
 function updateScenes(messagesRaw) {
   document.getElementById("message-textarea").value = messagesRaw;
+  document.getElementById("message-textarea").messagesRaw = messagesRaw;
   destructScenes();
   constructScenes(messagesRaw.split('\n'));
 }
@@ -143,6 +144,11 @@ function keydownHandler(e) {
 
 /* Open editor by setting display to block */
 function openEditor() {
+  // Re-load textarea in case user previously changed value without saving
+  const textarea = document.getElementById("message-textarea");
+  textarea.value = textarea.messagesRaw;
+
+  // Set editor container to visible block
   document.getElementById("editor").style.display = "block";
 }
 
@@ -195,6 +201,7 @@ window.onresize = () => {
   startMatrixRain();
 }
 
+// Only initialize after windows has fully loaded
 window.onload = () => {
   init();
 }
