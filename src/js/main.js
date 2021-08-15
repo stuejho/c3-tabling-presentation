@@ -102,8 +102,17 @@ function keydownHandler(e) {
   if ((e.key === 'E' || e.key === 'e') && 
       window.getComputedStyle(editor, null).display === "none") {
     document.getElementById("message-textarea").value = getMessagesRaw();
-    editor.style.display = "block";
+    openEditor();
   }
+  else if (e.key === "Escape" &&
+      window.getComputedStyle(editor, null).display === "block") {
+    closeEditor();
+  }
+}
+
+/* Open editor by setting display to block */
+function openEditor() {
+  document.getElementById("editor").style.display = "block";
 }
 
 /* Close editor by setting display to none */
@@ -177,7 +186,8 @@ function init() {
  * Event listeners
  */
 
-// Display message editor when the user presses the 'E' key
+// Display message editor when the user presses 'E' and
+// hide message editor when the user presses 'Esc'
 document.addEventListener("keydown", keydownHandler);
 
 window.onload = () => {
