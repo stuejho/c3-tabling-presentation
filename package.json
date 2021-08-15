@@ -1,18 +1,19 @@
 {
-  "name": "c3-tabling-presentation",
+  "name": "matrix-messages",
   "version": "1.0.0",
   "description": "Node.js application to display a web-based slideshow",
   "author": "Ethan Ho",
   "scripts": {
-    "start": "rm -rf dist && npx webpack --mode production & node app.js",
-    "dev": "rm -rf dist && npx webpack --mode development --watch & npx nodemon app.js",
-    "build": "rm -rf dist && npx webpack --mode production",
+    "start": "npx webpack --mode production & node app.js",
+    "dev": "npx webpack --mode development --watch & npx nodemon app.js",
+    "build": "npx webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
