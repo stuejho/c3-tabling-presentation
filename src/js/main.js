@@ -12,7 +12,7 @@ function render(canvas, context, fontSize, characters, columnYs) {
   // Function constants
   const textColor = window.getComputedStyle(canvas).getPropertyValue("color");
   const font = window.getComputedStyle(canvas).getPropertyValue("font");
-  const resetChance = 0.025;  // probability of resetting column
+  const resetChance = 0.020;  // probability of resetting column
                               // after traveling screen height
 
   // Matrix background is partially transparent to show a trail
