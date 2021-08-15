@@ -177,30 +177,6 @@ h6 {
 }
 
 /*
- * Scene stylings
- */
-
-/* Spinning animation */
-.spin-anim {
-    animation-name: spin;
-    animation-duration: 3s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-}
-
-@keyframes spin {
-    0%   { transform: rotate(-1turn); }
-}
-
-/* Emoji size */
-.big-emoji {
-    position: absolute;
-    opacity: 0.25;
-    z-index: -1;
-    font-size: 20em;
-}
-
-/*
  * Message editor
  */
 .message-editor {
