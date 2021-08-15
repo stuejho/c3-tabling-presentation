@@ -1,18 +1,4 @@
 /*
- * Global variables
- */
-var gMessagesRaw = ""; // Messages in unsplit string form
-
-function setMessagesRaw(messagesRaw) {
-  gMessagesRaw = messagesRaw;
-  document.getElementById("message-textarea").value = gMessagesRaw;
-}
-
-function getMessagesRaw() {
-  return gMessagesRaw;
-}
-
-/*
  * Functions
  */
 
@@ -64,12 +50,11 @@ function destructScenes() {
 }
 
 /* Load display text and set up scene changes */
-function constructScenes() {
+function constructScenes(messageList) {
   // Stage to house scenes
   let stage = document.getElementById("main-stage");
 
   // Create scenes using messages
-  const messageList = getMessagesRaw().split('\n');
   messageList.forEach((message) => {
     // Outer scene div
     const divScene = document.createElement("div");
@@ -122,9 +107,9 @@ function closeEditor() {
 
 /* Updates the displayed scenes by removing old ones and creating new ones */
 function updateScenes(messagesRaw) {
-  setMessagesRaw(messagesRaw);
+  document.getElementById("message-textarea").value = messagesRaw;
   destructScenes();
-  constructScenes();
+  constructScenes(messagesRaw.split('\n'));
 }
 
 function init() {
@@ -178,7 +163,7 @@ function init() {
     const messagesRaw = document.getElementById("message-textarea").value;
     updateScenes(messagesRaw);
     closeEditor();
-    return false;
+    return false; // don't redirect page when submit button is triggered
   }
 }
 
