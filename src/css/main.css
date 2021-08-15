@@ -107,7 +107,7 @@ h6 {
     position: absolute;
     display: block;
     animation-name: color-fade;
-    color: green;
+    color: lime;
     font-size: 1rem;
     font-family: "Lucida Console", monospace;
 }
