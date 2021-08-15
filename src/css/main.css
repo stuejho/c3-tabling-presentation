@@ -227,11 +227,16 @@ h6 {
 .btn {
     appearance: none;
     color: white;
-    background-color: #04AA6D;
+    background-color: rgba(127, 255, 0, 0.5);
     border: none;
+    outline: 1px white solid;
     padding: 1em 1.2em;
     cursor: pointer;
     font-family: inherit;
+}
+
+.btn:hover {
+    outline: 2px white solid;
 }
 
 .cancel {
