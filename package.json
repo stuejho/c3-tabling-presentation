@@ -1,5 +1,5 @@
 {
-  "name": "matrix-messages",
+  "name": "matrix-message",
   "version": "1.0.0",
   "description": "Node.js application to display a web-based slideshow",
   "author": "Ethan Ho",
