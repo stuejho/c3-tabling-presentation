@@ -163,9 +163,7 @@ function init() {
   };
   xhr.send(null);
 
-  let cancelBtn = document.getElementById("cancelBtn");
-  cancelBtn.onclick = e => { closeEditor(); };
-
+  /* Set message editor button handlers */
   let messageEditorForm = document.getElementById("message-editor-form");
   messageEditorForm.onsubmit = () => {
     const messagesRaw = document.getElementById("message-textarea").value;
@@ -173,6 +171,9 @@ function init() {
     closeEditor();
     return false; // don't redirect page when submit button is triggered
   }
+
+  let cancelBtn = document.getElementById("cancelBtn");
+  cancelBtn.onclick = e => { closeEditor(); };
 }
 
 /* 
