@@ -55,11 +55,12 @@ function destructScenes() {
 }
 
 /* Load display text and set up scene changes */
-function constructScenes(messageList) {
+function constructScenes() {
   // Stage to house scenes
   let stage = document.getElementById("main-stage");
 
   // Create scenes using messages
+  const messageList = gMessagesRaw.split('\n');
   messageList.forEach((message) => {
     // Outer scene div
     const divScene = document.createElement("div");
@@ -111,7 +112,7 @@ function closeEditor() {
 function updateScenes(messagesRaw) {
   setMessagesRaw(messagesRaw);
   destructScenes();
-  constructScenes(messagesRaw.split('\n'));
+  constructScenes();
 }
 
 function init() {
