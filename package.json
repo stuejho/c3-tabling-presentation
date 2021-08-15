@@ -4,7 +4,7 @@
   "description": "Node.js application to display a web-based slideshow",
   "author": "Ethan Ho",
   "scripts": {
-    "start": "npx webpack --mode production & node app.js",
+    "start": "node app.js",
     "dev": "npx webpack --mode development --watch & npx nodemon app.js",
     "build": "npx webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
