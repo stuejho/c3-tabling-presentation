@@ -4,7 +4,7 @@ Matrix Message is a small website designed to display single-line text messages 
 
 ## Usage
 
-1. Navigate to (https://matrixmessage.uc.r.appspot.com/)[Matrix Message]
+1. Navigate to [Matrix Message](https://matrixmessage.uc.r.appspot.com/)
 2. Press 'E' open and edit display messages
 3. Display your messages with a cool background
 
