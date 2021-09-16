@@ -1,6 +1,6 @@
 # Matrix Message
 
-Matrix Message is a small website designed to display single-line text messages while green matrix rain appears in the background. The text is animated to appear in typewrite-like fashion. Matrix Message also includes a Message Editor that can be accessed by pressing the 'E' key on a keyboard.
+Matrix Message is a small website designed to display single-line text messages while green matrix rain appears in the background. The text is animated to appear in a typewriter-like fashion. Matrix Message also includes a Message Editor that can be accessed by pressing the 'E' key on a keyboard.
 
 ## Usage
 
